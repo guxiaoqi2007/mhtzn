@@ -92,12 +92,15 @@ class Gateway:
                 elif device_type == 11:
                     """Climate"""
                     await self._add_entity("climate", device)
+                elif device_type == 2:
+                    """switch"""
+                    await self._add_entity("switch", device)
 
             if start + count < total:
                 data = {
                     "start": start + count,
                     "max": DEVICE_COUNT_MAX,
-                    "devTypes": [1, 3, 11],
+                    "devTypes": [1,2,3,11],
                 }
                 await self._async_mqtt_publish("P/0/center/q5", data)
 
@@ -204,7 +207,7 @@ class Gateway:
             data = {
                 "start": 0,
                 "max": DEVICE_COUNT_MAX,
-                "devTypes": [1, 3, 11],
+                "devTypes": [1, 2,3, 11],
             }
             await self._async_mqtt_publish("P/0/center/q5", data)
             # publish payload to get scene list
